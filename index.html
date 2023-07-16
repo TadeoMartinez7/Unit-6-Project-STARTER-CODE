@@ -4077,7 +4077,7 @@ button {
     font-family: 'Gloria Hallelujah', cursive;
 }
 img{
-    border: 5px solid yellow;
+    border: 5px solid gold;
     width:200px;
     height:200px;
 }
@@ -4093,7 +4093,7 @@ img{
         <br>
         <p>Type in a genre below and we'll suggest some games!</p>
 
-        <input class="genre" placeholder="Shooter, Horror or Roguelikes?">
+        <input class="genre" placeholder="Shooter, Horror or Roguelike?">
         <button class="genreButton">Submit!</button>
         <p>Want to suggest a game for us to include?</p>
         <input class="suggest" placeholder="Provide img url of a show!">
@@ -4103,18 +4103,92 @@ img{
     
 <script>
 /*__POPCODESTART__*/
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 // Declare your genre arrays here
-var shooter = ["https://www.riotgames.com/darkroom/1440/d0807e131a84f2e42c7a303bda672789:3d02afa7e0bfb75f645d97467765b24c/valorant-offwhitelaunch-keyart.jpg", "https://www.dictionary.com/e/wp-content/uploads/2018/07/CS-GO3.jpg", "https://assets-prd.ignimgs.com/2022/05/24/call-of-duty-modern-warfare-2-button-02-1653417394041.jpg"];
-var horror = ["https://cdn.cloudflare.steamstatic.com/steam/apps/739630/header.jpg?t=1683281716", "https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/en_US/games/switch/f/five-nights-at-freddys-switch/hero", "https://www.heypoorplayer.com/wp-content/uploads/2021/03/at-dead-of-night.jpg"];
-var rogue = ["https://image.api.playstation.com/vulcan/ap/rnd/202110/2820/n5HAYQ1mOG7JHnU288faOq9l.png", "https://cdn1.epicgames.com/min/offer/1200x1600-1200x1600-e92fa6b99bb20c9edee19c361b8853b9.jpg", "https://cdn.akamai.steamstatic.com/steam/apps/1794680/capsule_616x353.jpg?t=1688057293"]; // Make sure to declare your HTML elements as variables! 
+var shooters = ["https://www.riotgames.com/darkroom/1440/d0807e131a84f2e42c7a303bda672789:3d02afa7e0bfb75f645d97467765b24c/valorant-offwhitelaunch-keyart.jpg", "https://www.dictionary.com/e/wp-content/uploads/2018/07/CS-GO3.jpg", "https://assets-prd.ignimgs.com/2022/05/24/call-of-duty-modern-warfare-2-button-02-1653417394041.jpg"];
+var horrors = ["https://cdn.cloudflare.steamstatic.com/steam/apps/739630/header.jpg?t=1683281716", "https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/en_US/games/switch/f/five-nights-at-freddys-switch/hero", "https://www.heypoorplayer.com/wp-content/uploads/2021/03/at-dead-of-night.jpg"];
+var rogues = ["https://cdn2.steamgriddb.com/file/sgdb-cdn/logo/795daa0834ca092ed52b5d0a5848387d.png", "https://cdn1.epicgames.com/min/offer/1200x1600-1200x1600-e92fa6b99bb20c9edee19c361b8853b9.jpg", "https://cdn.akamai.steamstatic.com/steam/apps/1794680/capsule_616x353.jpg?t=1688057293"];
+var suggestions = []; // Make sure to declare your HTML elements as variables! 
 
-var genre = document.querySelector("genre");
-var suggest = document.querySelector("suggest");
-var gButton = document.querySelector("genreButton");
-var sButton = document.querySelector("suggestButton");
-var div = document.querySelector("results"); // Submit Button 
+var genre = document.querySelector(".genre");
+var suggest = document.querySelector(".suggest");
+var gButton = document.querySelector(".genreButton");
+var sButton = document.querySelector(".suggestButton");
+var div = document.querySelector(".results"); // Submit Button 
 
-var submitButton = document.querySelector("button");
+gButton.onclick = function () {
+  var gInput = document.querySelector(".genre").value;
 
-submitButton.onclick = function () {};
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBvcGNvZGVQcmV2aWV3LmpzIl0sIm5hbWVzIjpbInNob290ZXIiLCJob3Jyb3IiLCJyb2d1ZSIsImdlbnJlIiwiZG9jdW1lbnQiLCJxdWVyeVNlbGVjdG9yIiwic3VnZ2VzdCIsImdCdXR0b24iLCJzQnV0dG9uIiwiZGl2Iiwic3VibWl0QnV0dG9uIiwib25jbGljayJdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQSxJQUFJQSxPQUFPLEdBQUcsQ0FBRSw4SUFBRixFQUVkLG9FQUZjLEVBSWQscUdBSmMsQ0FBZDtBQU1BLElBQUlDLE1BQU0sR0FBRyxDQUFFLGtGQUFGLEVBRWIsZ0pBRmEsRUFJYiwrRUFKYSxDQUFiO0FBT0EsSUFBSUMsS0FBSyxHQUFHLENBQUUsMEZBQUYsRUFFWiwrRkFGWSxFQUlaLHdGQUpZLENBQVosQyxDQU1BOztBQUNBLElBQUlDLEtBQUssR0FBR0MsUUFBUSxDQUFDQyxhQUFULENBQXVCLE9BQXZCLENBQVo7QUFDQSxJQUFJQyxPQUFPLEdBQUdGLFFBQVEsQ0FBQ0MsYUFBVCxDQUF1QixTQUF2QixDQUFkO0FBQ0EsSUFBSUUsT0FBTyxHQUFHSCxRQUFRLENBQUNDLGFBQVQsQ0FBdUIsYUFBdkIsQ0FBZDtBQUNBLElBQUlHLE9BQU8sR0FBR0osUUFBUSxDQUFDQyxhQUFULENBQXVCLGVBQXZCLENBQWQ7QUFDQSxJQUFJSSxHQUFHLEdBQUdMLFFBQVEsQ0FBQ0MsYUFBVCxDQUF1QixTQUF2QixDQUFWLEMsQ0FDQTs7QUFDQSxJQUFJSyxZQUFZLEdBQUdOLFFBQVEsQ0FBQ0MsYUFBVCxDQUF1QixRQUF2QixDQUFuQjs7QUFDQUssWUFBWSxDQUFDQyxPQUFiLEdBQXVCLFlBQVcsQ0FDakMsQ0FERCIsInNvdXJjZXNDb250ZW50IjpbIi8vIERlY2xhcmUgeW91ciBnZW5yZSBhcnJheXMgaGVyZVxubGV0IHNob290ZXIgPSBbIFwiaHR0cHM6Ly93d3cucmlvdGdhbWVzLmNvbS9kYXJrcm9vbS8xNDQwL2QwODA3ZTEzMWE4NGYyZTQyYzdhMzAzYmRhNjcyNzg5OjNkMDJhZmE3ZTBiZmI3NWY2NDVkOTc0Njc3NjViMjRjL3ZhbG9yYW50LW9mZndoaXRlbGF1bmNoLWtleWFydC5qcGdcIixcblxuXCJodHRwczovL3d3dy5kaWN0aW9uYXJ5LmNvbS9lL3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDE4LzA3L0NTLUdPMy5qcGdcIixcbiAgICAgICAgICAgICAgIFxuXCJodHRwczovL2Fzc2V0cy1wcmQuaWduaW1ncy5jb20vMjAyMi8wNS8yNC9jYWxsLW9mLWR1dHktbW9kZXJuLXdhcmZhcmUtMi1idXR0b24tMDItMTY1MzQxNzM5NDA0MS5qcGdcIiAgICAgICAgICAgICAgXG5dO1xubGV0IGhvcnJvciA9IFsgXCJodHRwczovL2Nkbi5jbG91ZGZsYXJlLnN0ZWFtc3RhdGljLmNvbS9zdGVhbS9hcHBzLzczOTYzMC9oZWFkZXIuanBnP3Q9MTY4MzI4MTcxNlwiLFxuICAgICAgICAgICAgICBcblwiaHR0cHM6Ly9hc3NldHMubmludGVuZG8uY29tL2ltYWdlL3VwbG9hZC9jX2ZpbGwsd18xMjAwL3FfYXV0bzpiZXN0L2ZfYXV0by9kcHJfMi4wL25jb20vZW5fVVMvZ2FtZXMvc3dpdGNoL2YvZml2ZS1uaWdodHMtYXQtZnJlZGR5cy1zd2l0Y2gvaGVyb1wiLFxuICAgICAgICAgICAgICBcblwiaHR0cHM6Ly93d3cuaGV5cG9vcnBsYXllci5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjEvMDMvYXQtZGVhZC1vZi1uaWdodC5qcGdcIiAgICAgICAgICAgICAgXG5dO1xuXG5sZXQgcm9ndWUgPSBbIFwiaHR0cHM6Ly9pbWFnZS5hcGkucGxheXN0YXRpb24uY29tL3Z1bGNhbi9hcC9ybmQvMjAyMTEwLzI4MjAvbjVIQVlRMW1PRzdKSG5VMjg4ZmFPcTlsLnBuZ1wiLFxuICAgICAgICAgICAgIFxuXCJodHRwczovL2NkbjEuZXBpY2dhbWVzLmNvbS9taW4vb2ZmZXIvMTIwMHgxNjAwLTEyMDB4MTYwMC1lOTJmYTZiOTliYjIwYzllZGVlMTljMzYxYjg4NTNiOS5qcGdcIixcbiAgICAgICAgICAgICBcblwiaHR0cHM6Ly9jZG4uYWthbWFpLnN0ZWFtc3RhdGljLmNvbS9zdGVhbS9hcHBzLzE3OTQ2ODAvY2Fwc3VsZV82MTZ4MzUzLmpwZz90PTE2ODgwNTcyOTNcIiAgICAgICAgICAgICBcbl07XG4vLyBNYWtlIHN1cmUgdG8gZGVjbGFyZSB5b3VyIEhUTUwgZWxlbWVudHMgYXMgdmFyaWFibGVzISBcbmxldCBnZW5yZSA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCJnZW5yZVwiKTtcbmxldCBzdWdnZXN0ID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcInN1Z2dlc3RcIik7XG5sZXQgZ0J1dHRvbiA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCJnZW5yZUJ1dHRvblwiKTtcbmxldCBzQnV0dG9uID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcInN1Z2dlc3RCdXR0b25cIik7XG5sZXQgZGl2ID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcInJlc3VsdHNcIik7XG4vLyBTdWJtaXQgQnV0dG9uIFxubGV0IHN1Ym1pdEJ1dHRvbiA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCJidXR0b25cIik7IFxuc3VibWl0QnV0dG9uLm9uY2xpY2sgPSBmdW5jdGlvbigpIHtcbn07IFxuXG4iXX0=</script></body></html>
+  if (gInput === "Shooter") {
+    var _iterator = _createForOfIteratorHelper(shooters),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var shooter = _step.value;
+        div.insertAdjacentHTML("afterBegin", "<img src=" + shooter + ">");
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+  } else if (gInput === "Horror") {
+    var _iterator2 = _createForOfIteratorHelper(horrors),
+        _step2;
+
+    try {
+      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        var horror = _step2.value;
+        div.insertAdjacentHTML("afterBegin", "<img src=" + horror + ">");
+      }
+    } catch (err) {
+      _iterator2.e(err);
+    } finally {
+      _iterator2.f();
+    }
+  } else if (gInput === "Roguelike") {
+    var _iterator3 = _createForOfIteratorHelper(rogues),
+        _step3;
+
+    try {
+      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+        var rogue = _step3.value;
+        div.insertAdjacentHTML("afterBegin", "<img src=" + rogue + ">");
+      }
+    } catch (err) {
+      _iterator3.e(err);
+    } finally {
+      _iterator3.f();
+    }
+  }
+
+  console.log(gInput);
+};
+
+sButton.onclick = function () {
+  var sInput = document.querySelector(".suggest").value;
+  suggestions.push(sInput);
+
+  var _iterator4 = _createForOfIteratorHelper(suggestions),
+      _step4;
+
+  try {
+    for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+      var suggestion = _step4.value;
+      div.insertAdjacentHTML("afterBegin", "<img src=" + suggestion + ">");
+    }
+  } catch (err) {
+    _iterator4.e(err);
+  } finally {
+    _iterator4.f();
+  }
+
+  console.log(suggestions);
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBvcGNvZGVQcmV2aWV3LmpzIl0sIm5hbWVzIjpbInNob290ZXJzIiwiaG9ycm9ycyIsInJvZ3VlcyIsInN1Z2dlc3Rpb25zIiwiZ2VucmUiLCJkb2N1bWVudCIsInF1ZXJ5U2VsZWN0b3IiLCJzdWdnZXN0IiwiZ0J1dHRvbiIsInNCdXR0b24iLCJkaXYiLCJvbmNsaWNrIiwiZ0lucHV0IiwidmFsdWUiLCJzaG9vdGVyIiwiaW5zZXJ0QWRqYWNlbnRIVE1MIiwiaG9ycm9yIiwicm9ndWUiLCJjb25zb2xlIiwibG9nIiwic0lucHV0IiwicHVzaCIsInN1Z2dlc3Rpb24iXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBO0FBQ0EsSUFBSUEsUUFBUSxHQUFHLENBQUUsOElBQUYsRUFFZixvRUFGZSxFQUlmLHFHQUplLENBQWY7QUFNQSxJQUFJQyxPQUFPLEdBQUcsQ0FBRSxrRkFBRixFQUVkLGdKQUZjLEVBSWQsK0VBSmMsQ0FBZDtBQU9BLElBQUlDLE1BQU0sR0FBRyxDQUFFLHNGQUFGLEVBRWIsK0ZBRmEsRUFJYix3RkFKYSxDQUFiO0FBTUEsSUFBSUMsV0FBVyxHQUFHLEVBQWxCLEMsQ0FHQTs7QUFDQSxJQUFJQyxLQUFLLEdBQUdDLFFBQVEsQ0FBQ0MsYUFBVCxDQUF1QixRQUF2QixDQUFaO0FBQ0EsSUFBSUMsT0FBTyxHQUFHRixRQUFRLENBQUNDLGFBQVQsQ0FBdUIsVUFBdkIsQ0FBZDtBQUNBLElBQUlFLE9BQU8sR0FBR0gsUUFBUSxDQUFDQyxhQUFULENBQXVCLGNBQXZCLENBQWQ7QUFDQSxJQUFJRyxPQUFPLEdBQUdKLFFBQVEsQ0FBQ0MsYUFBVCxDQUF1QixnQkFBdkIsQ0FBZDtBQUNBLElBQUlJLEdBQUcsR0FBR0wsUUFBUSxDQUFDQyxhQUFULENBQXVCLFVBQXZCLENBQVYsQyxDQUNBOztBQUVBRSxPQUFPLENBQUNHLE9BQVIsR0FBa0IsWUFBVztBQUN6QixNQUFJQyxNQUFNLEdBQUdQLFFBQVEsQ0FBQ0MsYUFBVCxDQUF1QixRQUF2QixFQUFpQ08sS0FBOUM7O0FBQ0EsTUFBR0QsTUFBTSxLQUFHLFNBQVosRUFBc0I7QUFBQSwrQ0FDQVosUUFEQTtBQUFBOztBQUFBO0FBQ25CLDBEQUE0QjtBQUFBLFlBQXBCYyxPQUFvQjtBQUFFSixRQUFBQSxHQUFHLENBQUNLLGtCQUFKLENBQXVCLFlBQXZCLEVBQXFDLGNBQWNELE9BQWQsR0FBd0IsR0FBN0Q7QUFBbUU7QUFEOUU7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUVyQixHQUZELE1BRU0sSUFBR0YsTUFBTSxLQUFHLFFBQVosRUFBcUI7QUFBQSxnREFDUlgsT0FEUTtBQUFBOztBQUFBO0FBQzFCLDZEQUEwQjtBQUFBLFlBQWxCZSxNQUFrQjtBQUFFTixRQUFBQSxHQUFHLENBQUNLLGtCQUFKLENBQXVCLFlBQXZCLEVBQXFDLGNBQWNDLE1BQWQsR0FBdUIsR0FBNUQ7QUFBa0U7QUFEcEU7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUUxQixHQUZLLE1BRUEsSUFBR0osTUFBTSxLQUFHLFdBQVosRUFBd0I7QUFBQSxnREFDWlYsTUFEWTtBQUFBOztBQUFBO0FBQzdCLDZEQUF3QjtBQUFBLFlBQWhCZSxLQUFnQjtBQUFFUCxRQUFBQSxHQUFHLENBQUNLLGtCQUFKLENBQXVCLFlBQXZCLEVBQXFDLGNBQWNFLEtBQWQsR0FBc0IsR0FBM0Q7QUFBaUU7QUFEOUQ7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUU3Qjs7QUFDREMsRUFBQUEsT0FBTyxDQUFDQyxHQUFSLENBQVlQLE1BQVo7QUFDSCxDQVZEOztBQVdBSCxPQUFPLENBQUNFLE9BQVIsR0FBa0IsWUFBVztBQUN6QixNQUFJUyxNQUFNLEdBQUdmLFFBQVEsQ0FBQ0MsYUFBVCxDQUF1QixVQUF2QixFQUFtQ08sS0FBaEQ7QUFDQVYsRUFBQUEsV0FBVyxDQUFDa0IsSUFBWixDQUFpQkQsTUFBakI7O0FBRnlCLDhDQUdIakIsV0FIRztBQUFBOztBQUFBO0FBR3pCLDJEQUFrQztBQUFBLFVBQTFCbUIsVUFBMEI7QUFDbENaLE1BQUFBLEdBQUcsQ0FBQ0ssa0JBQUosQ0FBdUIsWUFBdkIsRUFBcUMsY0FBY08sVUFBZCxHQUEyQixHQUFoRTtBQUNDO0FBTHdCO0FBQUE7QUFBQTtBQUFBO0FBQUE7O0FBTXpCSixFQUFBQSxPQUFPLENBQUNDLEdBQVIsQ0FBWWhCLFdBQVo7QUFDSCxDQVBEIiwic291cmNlc0NvbnRlbnQiOlsiLy8gRGVjbGFyZSB5b3VyIGdlbnJlIGFycmF5cyBoZXJlXG5sZXQgc2hvb3RlcnMgPSBbIFwiaHR0cHM6Ly93d3cucmlvdGdhbWVzLmNvbS9kYXJrcm9vbS8xNDQwL2QwODA3ZTEzMWE4NGYyZTQyYzdhMzAzYmRhNjcyNzg5OjNkMDJhZmE3ZTBiZmI3NWY2NDVkOTc0Njc3NjViMjRjL3ZhbG9yYW50LW9mZndoaXRlbGF1bmNoLWtleWFydC5qcGdcIixcblxuXCJodHRwczovL3d3dy5kaWN0aW9uYXJ5LmNvbS9lL3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDE4LzA3L0NTLUdPMy5qcGdcIixcbiAgICAgICAgICAgICAgIFxuXCJodHRwczovL2Fzc2V0cy1wcmQuaWduaW1ncy5jb20vMjAyMi8wNS8yNC9jYWxsLW9mLWR1dHktbW9kZXJuLXdhcmZhcmUtMi1idXR0b24tMDItMTY1MzQxNzM5NDA0MS5qcGdcIiAgICAgICAgICAgICAgXG5dO1xubGV0IGhvcnJvcnMgPSBbIFwiaHR0cHM6Ly9jZG4uY2xvdWRmbGFyZS5zdGVhbXN0YXRpYy5jb20vc3RlYW0vYXBwcy83Mzk2MzAvaGVhZGVyLmpwZz90PTE2ODMyODE3MTZcIixcbiAgICAgICAgICAgICAgXG5cImh0dHBzOi8vYXNzZXRzLm5pbnRlbmRvLmNvbS9pbWFnZS91cGxvYWQvY19maWxsLHdfMTIwMC9xX2F1dG86YmVzdC9mX2F1dG8vZHByXzIuMC9uY29tL2VuX1VTL2dhbWVzL3N3aXRjaC9mL2ZpdmUtbmlnaHRzLWF0LWZyZWRkeXMtc3dpdGNoL2hlcm9cIixcbiAgICAgICAgICAgICAgXG5cImh0dHBzOi8vd3d3LmhleXBvb3JwbGF5ZXIuY29tL3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDIxLzAzL2F0LWRlYWQtb2YtbmlnaHQuanBnXCIgICAgICAgICAgICAgIFxuXTtcblxubGV0IHJvZ3VlcyA9IFsgXCJodHRwczovL2NkbjIuc3RlYW1ncmlkZGIuY29tL2ZpbGUvc2dkYi1jZG4vbG9nby83OTVkYWEwODM0Y2EwOTJlZDUyYjVkMGE1ODQ4Mzg3ZC5wbmdcIixcbiAgICAgICAgICAgICBcblwiaHR0cHM6Ly9jZG4xLmVwaWNnYW1lcy5jb20vbWluL29mZmVyLzEyMDB4MTYwMC0xMjAweDE2MDAtZTkyZmE2Yjk5YmIyMGM5ZWRlZTE5YzM2MWI4ODUzYjkuanBnXCIsXG4gICAgICAgICAgICAgXG5cImh0dHBzOi8vY2RuLmFrYW1haS5zdGVhbXN0YXRpYy5jb20vc3RlYW0vYXBwcy8xNzk0NjgwL2NhcHN1bGVfNjE2eDM1My5qcGc/dD0xNjg4MDU3MjkzXCIgICAgICAgICAgICAgXG5dO1xubGV0IHN1Z2dlc3Rpb25zID0gW1xuXG5dO1xuLy8gTWFrZSBzdXJlIHRvIGRlY2xhcmUgeW91ciBIVE1MIGVsZW1lbnRzIGFzIHZhcmlhYmxlcyEgXG5sZXQgZ2VucmUgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLmdlbnJlXCIpO1xubGV0IHN1Z2dlc3QgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnN1Z2dlc3RcIik7XG5sZXQgZ0J1dHRvbiA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIuZ2VucmVCdXR0b25cIik7XG5sZXQgc0J1dHRvbiA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIuc3VnZ2VzdEJ1dHRvblwiKTtcbmxldCBkaXYgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJlc3VsdHNcIik7XG4vLyBTdWJtaXQgQnV0dG9uIFxuXG5nQnV0dG9uLm9uY2xpY2sgPSBmdW5jdGlvbigpIHtcbiAgICBsZXQgZ0lucHV0ID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5nZW5yZVwiKS52YWx1ZTtcbiAgICBpZihnSW5wdXQ9PT1cIlNob290ZXJcIil7XG4gICAgICAgZm9yKGxldCBzaG9vdGVyIG9mIHNob290ZXJzKXsgZGl2Lmluc2VydEFkamFjZW50SFRNTChcImFmdGVyQmVnaW5cIiwgXCI8aW1nIHNyYz1cIiArIHNob290ZXIgKyBcIj5cIik7fVxuICAgIH1lbHNlIGlmKGdJbnB1dD09PVwiSG9ycm9yXCIpe1xuICAgIFx0Zm9yKGxldCBob3Jyb3Igb2YgaG9ycm9ycyl7IGRpdi5pbnNlcnRBZGphY2VudEhUTUwoXCJhZnRlckJlZ2luXCIsIFwiPGltZyBzcmM9XCIgKyBob3Jyb3IgKyBcIj5cIik7fVxuICAgIH1lbHNlIGlmKGdJbnB1dD09PVwiUm9ndWVsaWtlXCIpe1xuICAgIFx0Zm9yKGxldCByb2d1ZSBvZiByb2d1ZXMpeyBkaXYuaW5zZXJ0QWRqYWNlbnRIVE1MKFwiYWZ0ZXJCZWdpblwiLCBcIjxpbWcgc3JjPVwiICsgcm9ndWUgKyBcIj5cIik7fVxuICAgIH1cbiAgICBjb25zb2xlLmxvZyhnSW5wdXQpO1xufTsgXG5zQnV0dG9uLm9uY2xpY2sgPSBmdW5jdGlvbigpIHtcbiAgICBsZXQgc0lucHV0ID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5zdWdnZXN0XCIpLnZhbHVlO1xuICAgIHN1Z2dlc3Rpb25zLnB1c2goc0lucHV0KTtcbiAgICBmb3IobGV0IHN1Z2dlc3Rpb24gb2Ygc3VnZ2VzdGlvbnMpeyBcbiAgICBkaXYuaW5zZXJ0QWRqYWNlbnRIVE1MKFwiYWZ0ZXJCZWdpblwiLCBcIjxpbWcgc3JjPVwiICsgc3VnZ2VzdGlvbiArIFwiPlwiKTtcbiAgICB9XG4gICAgY29uc29sZS5sb2coc3VnZ2VzdGlvbnMpO1xufTsgXG5cblxuIl19</script></body></html>
